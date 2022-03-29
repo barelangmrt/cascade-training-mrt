@@ -1,0 +1,24 @@
+Install ANACONDA3
+DOWNLOAD : https://www.anaconda.com/products/individual
+
+install : bash Anaconda3-2021.11-Linux-x86_64.sh
+
+untuk membuat myenv : conda create -n myenv opencv=3.4
+
+untuk training data p dan n
+
+python3 neg.py --dir n
+
+python3 resizer.py --dir p
+
+python3 infogenerator.py --dir pos_res/
+
+opencv_createsamples -info info.dat -vec ball.vec -num 1000 -w 24 -h 24 
+
+
+opencv_traincascade -data data -vec ball.vec -bg neg.txt -numPos 1000 -numNeg 2001 -numStages 20 -minHitRate 0.999 -maxFalseAlarmRate 0.5 -w 24 -h 24 -mode ALL -precalcValBufSize 256 -precalcIdxBufSize 256 -acceptanceRatioBreakValue 10e-5 -nonsym -baseFormatSave -featureType LBP 
+
+opencv_traincascade -data data -vec ball.vec -bg neg.txt -numPos 3000 -numNeg 9000 -numStages 20 -minHitRate 0.999 -maxFalseAlarmRate 0.5 -w 24 -h 24 -mode ALL -precalcValBufSize 256 -precalcIdxBufSize 256 -acceptanceRatioBreakValue 10e-5 -nonsym -baseFormatSave -featureType LBP
+
+
+
